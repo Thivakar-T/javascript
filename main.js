@@ -60,34 +60,6 @@ function validateForm() {
       return false;
     }
     console.log(document.querySelector('input[name="result1"]:checked').value);
-
-    
-  //   var customerObj={};
-  //   var rate_value;
-  //   var name = document.getElementById("name").value;
-  //   var num = document.getElementById("number").value;
-  //   var loc = document.getElementById("location").value;
-  //   var desc = document.getElementById("Description").value;
-   
-  //   if (document.getElementById('result').checked) {
-  //    rate_value = document.getElementById('result').value;
-  //    }
-  //  else if(document.getElementById('result2').checked){
-  //    rate_value = document.getElementById('result2').value;
-  //  }
-   
-  //  customerObj={
-  //     'name':name,
-  //     'number':num,
-  //     'location':loc,
-  //     'Description':desc,
-  //     'result':rate_value
-      
-  //  };
-  //  console.log(customerObj);
-  //  alert( customerObj);
-
-
    
    var modal = document.getElementById('id01');
    window.onclick = function(event) {
@@ -97,58 +69,82 @@ function validateForm() {
    }
    inserTable();
 
+   document.getElementById("name").value='';
+   document.getElementById("number").value='';
+   document.getElementById("location").value='';
+   document.getElementById("Description").value='';
+   document.getElementById("result").checked=false;
+   document.getElementById("result2").checked=false;
+
+   console.log(editText);
+if(editText != undefined){
+  customerArray.splice(editText,1);
+}
+
     return true;
    document.getElementById("myForm").reset();
    document.getElementById("myForm").submit();
  }
-//  function inserTable(){
-//   var contactArray = [];
-//   if (this.displayArea.length > 0) {
-//     for (i = 0; i < this.displayArea.length; i++) {
-//       data += '<tr>';
-//       data += '<td>' + this.displayArea[i] + '</td>';
-//       data += '<td><button onclick="app.Edit(' + i + ')">Edit</button></td>';
-//       data += '<td><button onclick="app.Delete(' + i + ')">Delete</button></td>';
-//       data += '</tr>';
-//     }
-//   }
-
-//  }
-var rate_value;
-var name = document.getElementById("name").value;
-var num = document.getElementById("number").value;
-var loc = document.getElementById("location").value;
-var desc = document.getElementById("Description").value;
-
-if (document.getElementById('result').checked) {
- rate_value = document.getElementById('result').value;
- }
-else if(document.getElementById('result2').checked){
- rate_value = document.getElementById('result2').value;
-}
+ 
 var sNo = 1;
-var customId = 1;
+var editText;
+// var customId = 1;
 var customerArray = [];
-function inserTable(){
+function inserTable(){ 
+  var rate_value;
+  var name = document.getElementById("name").value;
+  var num = document.getElementById("number").value;
+  var loc = document.getElementById("location").value;
+  var desc = document.getElementById("Description").value;
+ 
+  if (document.getElementById('result').checked) {
+   rate_value = document.getElementById('result').value;
+   }
+ else if(document.getElementById('result2').checked){
+   rate_value = document.getElementById('result2').value;
+ }
 		  var customerObj = {
-		  	  "sNo":sNo,
-		  	  "id":customId,
-          'name':name,
-          'number':num,
-          'location':loc,
-          'Description':desc,
-          'result':rate_value
-		
+          sNo:sNo,
+          name:name,
+          number:num,
+          location:loc,
+          Description:desc,
+          result:rate_value
 		  };
-		  customerArray.push(customerObj);
+      customerArray.push(customerObj);
+      console.log(customerArray);
 		  addTable();
 		  sNo++;
-		  customId++;
 
 }
  function addTable(){
-  for(i = 0; i < customerArray.length; i++){
-      var customerObj = customerArray[i];
-      document.getElementById("displayArea").append("<tr id='row"+i+"'><td>" + customerObj.sNo + "</td><td>" + customerObj.name + "</td><td>" + customerObj.location + "</td><td><span class='editrow' style='cursor:pointer;'><a style='cursor:pointer;color:black' class='fa fa-edit' href='javascript:void(0);'  onclick ='editDetail("+customerObj.id+");' >Edit</a></span><span><a onclick='deleteRow("+customerObj.id+");' class='material-icons'style='font-size:30px;color:red;margin-left:30px;cursor:pointer;'>delete</a></span></td></tr>");
+
+    var v="";
+    editText=undefined;
+    for(i = 0; i < customerArray.length; i++){
+      v+="<tr>";
+      v+="<td>"+customerArray[i].sNo+"</td>";
+      v+="<td>"+customerArray[i].name+"</td>";
+      v+="<td>"+customerArray[i].location+"</td>";
+      v += '<td><button style="" onclick="Edit(' + i + ')">Edit</button><button onclick="Delete(' + i + ')">Delete</button></td>';
     }
-}  
+    document.getElementById("displayArea").innerHTML=v;
+} 
+function Delete(item) {
+  customerArray.splice(item, 1);
+ addTable();
+ }; 
+function Edit(item){
+  
+  editText=item;
+    console.log(item);
+    console.log(customerArray);
+    console.log(customerArray[item]);
+    document.getElementById("name").value = customerArray[item].name;
+    document.getElementById("location").value = customerArray[item].location;
+    document.getElementById("number").value = customerArray[item].number;
+    document.getElementById("Description").value = customerArray[item].Description;
+
+
+    };
+  

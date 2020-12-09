@@ -24,7 +24,7 @@
          </div>
          <div>
             <div class="px-5">
-               <form name="myForm" action="" class="text-success" onsubmit="return validateForm()" method="post">
+               <form name="myForm" action="" class="text-success" onsubmit="return false " method="post">
                   <div class="row py-4">
                      <div class="col">
                         <label id="myH2" for="name"> Customer name<sup class="text-danger">*</sup></label>
@@ -85,7 +85,7 @@
                      <Note:Visiting class="text-success note">Note:Visiting $100.00</Note:Visiting>
                   </div>
                   <div class="py-4 text-center">
-                     <input type="submit" class="border border-success bg-light  py-3 px-4 c"  value="Submit">
+                     <input type="submit" class="border border-success bg-light  py-3 px-4 c"  value="Submit" onclick="validateForm()">
                      <input type="reset" class=" border border-success bg-success text-light px-4 py-3 v"
                         value="Reset ">
                   </div>
