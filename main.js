@@ -1,3 +1,5 @@
+var editText;
+var customerArray = [];
 function validateForm() {
   var regex = new RegExp("^[a-zA-Z ]");
   var num = new RegExp("^[0-9]*$");
@@ -77,20 +79,19 @@ function validateForm() {
    document.getElementById("result2").checked=false;
 
    console.log(editText);
-if(editText != undefined){
-  customerArray.splice(editText,1);
-}
 
     return true;
-   document.getElementById("myForm").reset();
-   document.getElementById("myForm").submit();
+  //  document.getElementById("myForm").reset();
+  //  document.getElementById("myForm").submit();
  }
  
-var sNo = 1;
-var editText;
+var sNo = 0;
 // var customId = 1;
-var customerArray = [];
+
 function inserTable(){ 
+  if(editText != undefined){
+    customerArray.splice(editText,1);
+  } 
   var rate_value;
   var name = document.getElementById("name").value;
   var num = document.getElementById("number").value;
@@ -118,15 +119,14 @@ function inserTable(){
 
 }
  function addTable(){
-
     var v="";
     editText=undefined;
     for(i = 0; i < customerArray.length; i++){
       v+="<tr>";
-      v+="<td>"+customerArray[i].sNo+"</td>";
+      v+="<td>"+(i+1)+"</td>";
       v+="<td>"+customerArray[i].name+"</td>";
       v+="<td>"+customerArray[i].location+"</td>";
-      v += '<td><button style="" onclick="Edit(' + i + ')">Edit</button><button onclick="Delete(' + i + ')">Delete</button></td>';
+      v += '<td><button class="btn btn-primary mr-3" style="" onclick="Edit(' + i + ')">Edit</button><button class="btn btn-danger"  onclick="Delete(' + i + ')">Delete</button></td>';
     }
     document.getElementById("displayArea").innerHTML=v;
 } 
@@ -135,7 +135,6 @@ function Delete(item) {
  addTable();
  }; 
 function Edit(item){
-  
   editText=item;
     console.log(item);
     console.log(customerArray);
@@ -143,6 +142,7 @@ function Edit(item){
     document.getElementById("name").value = customerArray[item].name;
     document.getElementById("location").value = customerArray[item].location;
     document.getElementById("number").value = customerArray[item].number;
+    document.getElementById("Description").value = customerArray[item].Description;
     document.getElementById("Description").value = customerArray[item].Description;
 
 
